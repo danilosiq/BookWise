@@ -1,0 +1,11 @@
+
+
+:root {
+  --background: #0E1116;
+}
+
+body {
+  background: var(--background);
+  color: #F8F9FC;
+  -webkit-font-smoothing: ;
+}

@@ -1,5 +1,5 @@
 import { HomeScreen } from "@/core/features/home";
 
-export default function Base() {
+export default function Home() {
   return <HomeScreen />;
 }
