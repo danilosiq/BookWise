@@ -3,6 +3,7 @@ import getLastBookReaded from "@/core/actions/get-last-review";
 import listPopularBooks from "@/core/actions/list-popular-books";
 import listRecentReviews from "@/core/actions/list-recent-reviews";
 import { Column, Row } from "@/core/components/layout";
+import { Menu } from "@/core/components/menu";
 import { Sidebar } from "@/core/components/sidebar";
 import { Skeleton } from "@/core/components/skeleton";
 import { BookReviewCard } from "@/core/features/home/components/book-review-card";
@@ -37,7 +38,8 @@ export function HomeScreen() {
     <>
       {session.status != "loading" && (
         <Row className=" gap-3.5 pr-1">
-          <section className=" w-[252px] pl-5  pt-5 relative  bg-blue">
+          <section className=" w-[252px]  pl-5  relative max-sm:hidden">
+            <p className="invisible w-[252px]">.</p>
             <div className=" h-[calc(100vh-36px)] fixed">
               <Sidebar
                 avatar_url={session.data?.user.avatar_url}
@@ -46,7 +48,12 @@ export function HomeScreen() {
               />
             </div>
           </section>
-          <section className="flex flex-1 justify-center ">
+          <section className=" pb-[300px] m-auto pr-3 max-sm:pl-3 flex flex-col w-[896px]">
+            <Menu
+              avatar_url={session.data?.user.avatar_url}
+              username={session.data?.user.name}
+              isLoading={session.status}
+            />
             <Column>
               <Row className="gap-3 mb-10 mt-[72px] ">
                 <ChartLineUp size={32} color="#50B2C0" />

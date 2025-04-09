@@ -2,6 +2,7 @@
 import { CategoryType } from "@/@types/category-type";
 import listCategories from "@/core/actions/list-categories";
 import { Column, Row } from "@/core/components/layout";
+import { Menu } from "@/core/components/menu";
 import { SearchInputText } from "@/core/components/search-input-text";
 import { Sidebar } from "@/core/components/sidebar";
 import { Binoculars } from "@phosphor-icons/react";
@@ -23,8 +24,9 @@ export function ExplorerScreen() {
   return (
     <>
       {session.status != "loading" && (
-        <Row className=" gap-3.5 pr-5">
-          <section className=" w-[252px] pl-5  pt-5 relative  bg-blue">
+        <Row className=" gap-3.5 pr-5 max-sm:pl-5">
+          <section className=" w-[252px]  pl-5  relative max-sm:hidden">
+            <p className="invisible w-[252px]">.</p>
             <div className=" h-[calc(100vh-36px)] fixed">
               <Sidebar
                 avatar_url={session.data?.user.avatar_url}
@@ -33,10 +35,16 @@ export function ExplorerScreen() {
               />
             </div>
           </section>
-          <section className="flex flex-1  mb-[200px] justify-center ">
+
+          <section className="flex flex-1  mb-[200px]  justify-center ">
+            <Menu
+              avatar_url={session.data?.user.avatar_url}
+              username={session.data?.user.name}
+              isLoading={session.status}
+            />
             <Column className=" max-w-[1330px] w-full">
               <Column className="gap-10 mb-11 mt-[72px] ">
-                <Row className="justify-between gap-5 items-center">
+                <div className="justify-between flex max-sm:flex-col gap-5 items-center">
                   <Row className="gap-3 ">
                     <Binoculars size={32} color="#50B2C0" />
                     <p className="font-bold text-2xl">Explorar</p>
@@ -48,7 +56,7 @@ export function ExplorerScreen() {
                       onChange={(e) => setSearchValue(e.target.value)}
                     />
                   </div>
-                </Row>
+                </div>
 
                 <Row className="gap-3 overflow-x-auto h-14 w-full relative scrollbar-styled">
                   <Row className="flex-row gap-3 absolute w-full h-10">

@@ -2,6 +2,7 @@
 import { RatingType } from "@/@types/rating-type";
 import getUser from "@/core/actions/get-user";
 import { Column, Row } from "@/core/components/layout";
+import { Menu } from "@/core/components/menu";
 import { SearchInputText } from "@/core/components/search-input-text";
 import { Sidebar } from "@/core/components/sidebar";
 import { Skeleton } from "@/core/components/skeleton";
@@ -50,18 +51,22 @@ export function UserScreen() {
 
   return (
     <Row className=" gap-3.5">
-      <section className=" w-[252px] pl-5  pt-5 relative">
-      <p className="invisible w-[252px]">.</p>
-
-        <div className=" h-[calc(100vh-36px)] fixed">
-          <Sidebar
-            avatar_url={session.data?.user.avatar_url}
-            username={session.data?.user.name}
-            isLoading={session.status}
-          />
-        </div>
-      </section>
-      <section className="  m-auto pr-3 flex flex-col w-[896px]">
+      <section className=" w-[252px]  pl-5  relative max-sm:hidden">
+            <p className="invisible w-[252px]">.</p>
+            <div className=" h-[calc(100vh-36px)] fixed">
+              <Sidebar
+                avatar_url={session.data?.user.avatar_url}
+                username={session.data?.user.name}
+                isLoading={session.status}
+              />
+            </div>
+          </section>
+          <section className=" pb-[300px] m-auto pr-3 max-sm:pl-3 flex flex-col w-[896px]">
+            <Menu
+              avatar_url={session.data?.user.avatar_url}
+              username={session.data?.user.name}
+              isLoading={session.status}
+            />
         <Row className="  text-gray-100 mb-10 mt-[72px] ">
           <Row className="cursor-pointer gap-3 items-center border-b-2 border-transparent hover:border-purple-100">
             <CaretLeft size={20} />
