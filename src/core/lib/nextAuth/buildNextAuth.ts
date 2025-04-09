@@ -6,6 +6,7 @@ import { PrismaAdapter } from "./prisma-adapter";
 
 export function buildNextAuthOptions(): NextAuthOptions {
   return {
+    secret: process.env.NEXTAUTH_SECRET,
     adapter: PrismaAdapter(),
     providers: [
       GithubProvider({
