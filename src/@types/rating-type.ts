@@ -1,5 +1,5 @@
 import { BookType } from "./book-type";
-import { UserBaseType } from "./user-type";
+import { UserType } from "./user-type";
 
 
 
@@ -10,6 +10,6 @@ export type RatingType={
     created_at?:Date,
     book?:BookType,
     book_id:string,
-    user?:UserBaseType,
+    user?:UserType,
     user_id:string,
 }
