@@ -16,7 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Check, X } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
@@ -47,6 +47,20 @@ export function BookInfoSheet({
   const [reviewBoxVisibility, setReviewBoxVisibility] =
     useState<boolean>(false);
   const [dialogVisibility, setDialogVisibility] = useState<boolean>(false);
+  const [side, setSide] = useState<"right" | "bottom">("right");
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setSide(window.innerWidth < 640 ? "bottom" : "right");
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => {
+      window.removeEventListener("resize", checkScreenSize);
+    };
+  }, []);
   const {
     register,
     handleSubmit,
@@ -58,7 +72,8 @@ export function BookInfoSheet({
     defaultValues: {
       book_id: book.id,
       rate: 0,
-      user_id: sessionStatus === 'authenticated' ? session.data.user.id : '',    },
+      user_id: sessionStatus === "authenticated" ? session.data.user.id : "",
+    },
   });
 
   const queryClient = useQueryClient();
@@ -66,9 +81,8 @@ export function BookInfoSheet({
   const mutation = useMutation({
     mutationFn: postReview,
     onSuccess: () => {
-      toast.success('Review publicado com sucesso!')
+      toast.success("Review publicado com sucesso!");
       reset();
-
 
       queryClient.refetchQueries({ queryKey: ["listBooks"] });
       queryClient.refetchQueries({ queryKey: ["bookReviews"] });
@@ -98,14 +112,16 @@ export function BookInfoSheet({
       rate: data.rate,
       user_id: data.user_id,
     });
- 
   }
   return (
     <Sheet>
       <SheetTrigger>
         <BookCardMd book={book} />
       </SheetTrigger>
-      <SheetContent className=" pb-44 max-w-[600px] px-12 overflow-y-auto scrollbar-styled">
+      <SheetContent
+        side={side}
+        className=" pb-44 max-w-[600px] max-sm:px-2 sm:px-12 overflow-y-auto scrollbar-styled"
+      >
         <SheetTitle></SheetTitle>
         <SheetDescription></SheetDescription>
         <BookPostHeader bookData={book} />
@@ -126,7 +142,7 @@ export function BookInfoSheet({
               <Column className="bg-gray-700 gap-3 rounded-xl p-6">
                 <Row className="items-center justify-between">
                   <Row className=" items-center gap-4">
-                    <div className="bg-gradient-to-b from-[#7FD1CC] to-[#9694F5] rounded-full  flex justify-center items-center h-[40px] w-[40px]">
+                    <div className="bg-gradient-to-b from-[#7FD1CC] to-[#9694F5] rounded-full max-sm:w-[20px] max-sm:h-[20px]  flex justify-center items-center h-[40px] w-[40px]">
                       <Image
                         src={session.data.user.avatar_url}
                         alt={`${session.data.user.name}_image`}
