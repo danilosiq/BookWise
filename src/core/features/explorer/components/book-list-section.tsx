@@ -17,7 +17,7 @@ export function BookListSection({
   session,
   searchValue,
 }: BookListSectionProps) {
-  const [filteredBookList, setFilteredBookList] = useState([]);
+  const [filteredBookList, setFilteredBookList] = useState<BookType[]>([]);
   const query = useQuery({
     queryKey: ["listBooks"],
     queryFn: listBooks,
