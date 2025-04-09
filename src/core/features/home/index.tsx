@@ -38,7 +38,7 @@ export function HomeScreen() {
     <>
       {session.status != "loading" && (
         <Row className=" gap-3.5 pr-1">
-          <section className=" w-[252px]  pl-5  relative max-sm:hidden">
+      <section className=" w-[252px]  pl-5  relative max-sm:hidden">
             <p className="invisible w-[252px]">.</p>
             <div className=" h-[calc(100vh-36px)] fixed">
               <Sidebar
@@ -54,13 +54,13 @@ export function HomeScreen() {
               username={session.data?.user.name}
               isLoading={session.status}
             />
-            <Column>
+            <Column className="w-full flex-1 ">
               <Row className="gap-3 mb-10 mt-[72px] ">
                 <ChartLineUp size={32} color="#50B2C0" />
                 <p className="font-bold text-2xl">Início</p>
               </Row>
-              <Row className="gap-6">
-                <Column className="gap-3">
+              <Row className="gap-6 ">
+                <Column className="gap-3  flex-1 w-full">
                   {session.status === "authenticated" && (
                     <Column className="gap-4">
                       <Row className="justify-between">

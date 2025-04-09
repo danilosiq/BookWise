@@ -122,7 +122,7 @@ export function Sidebar({ avatar_url, username, isLoading }: SidebarProps) {
                 </div>
               </div>
             ) : (
-              <div className="flex gap-3 items-center absolute bottom-8">
+              <div onClick={()=>router.push('/access')} className="cursor-pointer flex gap-3 items-center absolute bottom-8">
                 <p className="font-bold">Fazer login</p>
                 <SignIn color="#50B2C0" />
               </div>
